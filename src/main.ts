@@ -1,16 +1,22 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient, HttpClientModule, withFetch } from '@angular/common/http';
-import { routes } from './app/app-routing.module';
-
-
+import { provideRouter, Routes } from '@angular/router';
+import { AppComponent } from './app/app.component';  // Assuming you are using AppComponentimport { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
+import { JwtInterceptor } from './app/jwt.interceptor';
+import { LoginComponent } from './app/login/login.component'; 
+const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent }, // Add LoginComponent route
+];
 
 bootstrapApplication(AppComponent, {
-providers: [
-  provideRouter(routes),  // Provide the routes
-  provideHttpClient(withFetch()),     // Include HttpClient for API requests
-  HttpClientModule
-]})
-.catch((err) => console.error(err));
-
+  providers: [
+    provideRouter(routes),  // Add routes if necessary
+    provideHttpClient(withFetch()),  // Provides HttpClient globally
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,  // Register the JwtInterceptor
+      multi: true
+    }
+  ],
+}).catch((err) => console.error(err));

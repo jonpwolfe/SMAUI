@@ -1,5 +1,5 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';  // Import Router for navigation
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -9,7 +9,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -22,7 +22,6 @@ export class LoginComponent {
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: any
   ) {
-    // Initialize the login form with validations
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -30,52 +29,53 @@ export class LoginComponent {
   }
 
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {  // Check if running in the browser
-      const token = localStorage.getItem('authToken');  // Access localStorage in the browser
+    // Check if token exists and redirect to dashboard if user is already logged in
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
       if (token) {
-        // Redirect to dashboard if token exists
         this.router.navigate(['/dashboard']);
       }
     }
   }
 
-  // Method to handle form submission
   onSubmit() {
     if (this.loginForm.invalid) {
       this.errorMessage = 'Please fill in all required fields';
       return;
     }
+
     this.isLoading = true;
     const loginData = this.loginForm.value;
 
-    // Send POST request to the server
+    // Send POST request to the server for login
     this.http.post<any>('http://localhost:8080/auth/login', loginData).subscribe({
       next: (response) => {
         if (response && response.token) {
           console.log('Login successful:', response);
-          // Store the token or perform other actions
+          // Store the JWT token in localStorage
           if (isPlatformBrowser(this.platformId)) {
-            localStorage.setItem('authToken', response.token);  // Store token in localStorage (only in the browser)
+            localStorage.setItem('authToken', response.token);
           }
-          this.router.navigate(['/dashboard']);  // Navigate to the dashboard
+          // Navigate to dashboard
+          this.router.navigate(['/dashboard']);
         } else {
           this.errorMessage = 'Login failed!';
-          this.isLoading = false; // Reset loading state on failure
+          this.isLoading = false;
         }
       },
       error: (err) => {
-        // Handle error
-        this.isLoading = false; // Reset loading state on error
+        this.isLoading = false;
         console.error('Error:', err);
-        this.errorMessage = 'An error occurred. Please try again.';
+      
+        if (err.status === 401) {
+          this.errorMessage = 'Invalid username or password.';
+        } else {
+          this.errorMessage = 'An error occurred. Please try again.';
+        }
       },
       complete: () => {
-        // Optional: handle completion
         console.log('Request completed.');
-        // Optionally reset the form after submission (if necessary)
-        // this.loginForm.reset(); 
       },
     });
   }
 }
-
