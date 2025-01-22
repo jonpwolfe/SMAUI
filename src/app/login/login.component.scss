@@ -1,52 +1,62 @@
 .login-container {
-    width: 300px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  form {
-    display: block;
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    width: 100%;
-  }
-  h2 {
-    text-align: center;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    margin: 10px 0;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .error-message {
-    color: red;
-    text-align: center;
-    margin-top: 10px;
-  }
-  
+  width: 20%;
+  max-width: 400px; /* Restrict width for larger screens */
+  margin: 50px auto; /* Center horizontally and add vertical spacing */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Ensure padding is included in the total width */
+}
+
+form {
+  width: 100%; /* Ensure the form fits the container */
+  box-sizing: border-box; /* Prevent padding from overflowing the container */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  width: calc(100% - 20px); /* Subtract padding to fit perfectly inside the form */
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-sizing: border-box; /* Include padding in the element's total width */
+}
+
+button {
+  width: 100%; /* Ensure button matches the width of the form */
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* Add a slight hover effect */
+}
+
+.error-message {
+  color: #ff4d4d;
+  background-color: #ffe6e6;
+  border: 1px solid #ff4d4d;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  margin-top: 10px;
+}
