@@ -1,13 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>SMAUI</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Angular App</title>
+
+  <!-- Add custom styles or external resources -->
+  <link rel="stylesheet" href="styles.css">
+
 </head>
+
 <body>
-  <app-root></app-root>
+  <!-- This is the root component's selector -->
+  <app-root></app-root>  <!-- Ensure this matches the selector in app.component.ts -->
+
+  <!-- Angular will inject the scripts here -->
+  <script src="runtime.js" defer></script>
+  <script src="polyfills.js" defer></script>
+  <script src="styles.js" defer></script>
+  <script src="vendor.js" defer></script>
+  <script src="main.js" defer></script>
+
 </body>
+
 </html>
