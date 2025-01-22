@@ -49,7 +49,7 @@ export class LoginComponent {
     const loginData = this.loginForm.value;
 
     // Send POST request to the server
-    this.http.post<any>('http://example.com/api/auth/login', loginData).subscribe({
+    this.http.post<any>('http://localhost:8080/auth/login', loginData).subscribe({
       next: (response) => {
         if (response && response.token) {
           console.log('Login successful:', response);
