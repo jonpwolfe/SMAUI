@@ -39,7 +39,7 @@ onSubmit() {
   const formData = this.registrationForm.value;
 
   // Send POST request to the server for registration
-  this.http.post<any>('http://localhost:8080/auth/register', formData, {withCredentials: true,responseType: 'text' as 'json',}).subscribe({
+  this.http.post<any>('http://localhost:8080/register', formData, {withCredentials: true, responseType: 'text' as 'json',}).subscribe({
     next: (response) => {
       console.log('Registration successful:', response);
 
