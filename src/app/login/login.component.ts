@@ -48,9 +48,8 @@ export class LoginComponent {
     const loginData = this.loginForm.value;
 
     // Send POST request to the server for login
-    this.http.post<any>('http://localhost:8080/auth/login', loginData, {withCredentials: true}).subscribe({
+    this.http.post<any>('http://localhost:8080/auth/login', loginData, {withCredentials: true, responseType: 'text' as 'json'}).subscribe({
       next: (response) => {
-        if (response && response.token) {
           console.log('Login successful:', response);
           // Store the JWT token in localStorage
           if (isPlatformBrowser(this.platformId)) {
@@ -58,10 +57,6 @@ export class LoginComponent {
           }
           // Navigate to dashboard
           this.router.navigate(['/dashboard']);
-        } else {
-          this.errorMessage = 'Login failed!';
-          this.isLoading = false;
-        }
       },
       error: (err) => {
         this.isLoading = false;
