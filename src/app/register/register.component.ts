@@ -25,7 +25,8 @@ export class RegisterComponent {
     { 
     this.registrationForm = this.fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      name: ['', Validators.required],
     });
   }
    // Method to handle user registration
