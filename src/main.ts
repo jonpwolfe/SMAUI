@@ -4,9 +4,11 @@ import { AppComponent } from './app/app.component';  // Assuming you are using A
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
 import { JwtInterceptor } from './app/jwt.interceptor';
 import { LoginComponent } from './app/login/login.component'; 
+import { RegisterComponent } from './app/register/register.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent }, // Add LoginComponent route
+  { path: 'register', component: RegisterComponent},
 ];
 
 bootstrapApplication(AppComponent, {

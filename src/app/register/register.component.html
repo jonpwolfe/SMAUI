@@ -1,0 +1,46 @@
+<div class="registration-container">
+    <h2>Register</h2>
+    
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          required
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && registrationForm.controls['username'].errors }"
+        />
+        <div *ngIf="submitted && registrationForm.controls['username'].errors" class="invalid-feedback">
+          Username is required.
+        </div>
+      </div>
+  
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          required
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && registrationForm.controls['password'].errors }"
+        />
+        <div *ngIf="submitted && registrationForm.controls['password'].errors" class="invalid-feedback">
+          Password is required.
+        </div>
+      </div>
+  
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">Register</button>
+  
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+  
