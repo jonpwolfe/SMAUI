@@ -8,10 +8,10 @@ import { CommonModule } from '@angular/common';
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  templateUrl: './registration.component.html',
+  styleUrl: './registration.component.scss'
 })
-export class RegisterComponent {
+export class RegistrationComponent {
   registrationForm: FormGroup;
   submitted = false;
   successMessage = '';
