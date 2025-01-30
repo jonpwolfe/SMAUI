@@ -6,11 +6,13 @@ import { JwtInterceptor } from './app/jwt.interceptor';
 import { LoginComponent } from './app/login/login.component'; 
 import { RegistrationComponent } from './app/registration/registration.component';
 import { DashboardComponent } from './app/dashboard/dashboard.component';
-const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent }, // Add LoginComponent route
-  { path: 'register', component: RegistrationComponent},
-  { path: 'dashboard', component: DashboardComponent},
+import { CurrentDatePipe } from './app/currentdate.pipe';
+export const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },  // Redirect to login by default
+  { path: 'login', component: LoginComponent },  // Route for login page
+  { path: 'register',component: RegistrationComponent},
+  { path: 'dashboard', component: DashboardComponent },  // Route for dashboard page
+  { path: '**', redirectTo: '/login' }  // Wildcard route for unknown paths
 ];
 
 bootstrapApplication(AppComponent, {
@@ -21,6 +23,7 @@ bootstrapApplication(AppComponent, {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,  // Register the JwtInterceptor
       multi: true
-    }
+    },
+    CurrentDatePipe,
   ],
 }).catch((err) => console.error(err));
