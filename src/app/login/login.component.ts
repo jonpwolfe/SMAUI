@@ -28,7 +28,7 @@ export class LoginComponent {
     });
   }
 
-  /*ngOnInit() {
+  ngOnInit() {
     // Check if token exists and redirect to dashboard if user is already logged in
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('authToken');
@@ -37,7 +37,7 @@ export class LoginComponent {
       }
     }
   }
-*/
+
   onSubmit() {
     if (this.loginForm.invalid) {
       this.errorMessage = 'Please fill in all required fields';
@@ -51,11 +51,6 @@ export class LoginComponent {
     this.http.post<any>('http://localhost:8080/auth/login', loginData, {withCredentials: true, responseType: 'json'}).subscribe({
       next: (response) => {
           console.log('Login successful:', response);
-          // Store the JWT token in localStorage
-         /* if (isPlatformBrowser(this.platformId)) {
-            localStorage.setItem('authToken', response.token);
-            console.log(response.token);
-          }*/
           // Navigate to dashboard
           this.router.navigate(['/dashboard']);
       },

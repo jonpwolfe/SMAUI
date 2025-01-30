@@ -27,8 +27,7 @@ export class DashboardComponent implements OnInit {
   // Method to load user data from the backend
   private loadUser(): void {
     this.isLoading = true;
-    //const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('authToken')}`);
-    this.http.get<{ name: string }>('http://localhost:8080/user', { /*headers,*/ withCredentials: true })
+    this.http.get<{ name: string }>('http://localhost:8080/user', {withCredentials: true })
       .subscribe({
         next: (data) => {
           this.name = data.name;
