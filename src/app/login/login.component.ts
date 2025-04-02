@@ -43,21 +43,32 @@ export class LoginComponent {
       this.errorMessage = 'Please fill in all required fields';
       return;
     }
-
+  
     this.isLoading = true;
     const loginData = this.loginForm.value;
-
-    // Send POST request to the server for login
-    this.http.post<any>('http://localhost:8080/auth/login', loginData, {withCredentials: true, responseType: 'json'}).subscribe({
+  
+    // Send POST request to login endpoint
+    this.http.post<any>('http://localhost:8080/auth/login', loginData, { 
+      observe: 'response', // Allows access to headers and response
+      responseType: 'json'
+    }).subscribe({
       next: (response) => {
-          console.log('Login successful:', response);
-          // Navigate to dashboard
-          this.router.navigate(['/dashboard']);
+        console.log('Login successful:', response);
+  
+        // Retrieve the token from the Authorization header
+        const token = response.headers.get('Authorization');
+        console.log(token);
+        if (token) {
+          // Store the token in localStorage, remove the 'Bearer ' prefix
+          localStorage.setItem('token', token.replace('Bearer ', ''));
+        }
+  
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.isLoading = false;
         console.error('Error:', err);
-      
+  
         if (err.status === 401) {
           this.errorMessage = 'Invalid username or password.';
         } else {

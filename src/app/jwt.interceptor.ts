@@ -12,10 +12,10 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Check if we're in the browser
     if (isPlatformBrowser(this.platformId)) {
-      // Retrieve the token from localStorage
-      const token = localStorage.getItem('authToken');
+      // Retrieve the token from localStorage (only in the browser)
+      const token = localStorage.getItem('token');
       
-      // If there's a token, clone the request and add the Authorization header.
+      // If the token exists, clone the request and add Authorization header
       if (token) {
         request = request.clone({
           setHeaders: {
