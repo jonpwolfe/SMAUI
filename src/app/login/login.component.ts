@@ -57,7 +57,6 @@ export class LoginComponent {
   
         // Retrieve the token from the Authorization header
         const token = response.headers.get('Authorization');
-        console.log(token);
         if (token) {
           // Store the token in localStorage, remove the 'Bearer ' prefix
           localStorage.setItem('token', token.replace('Bearer ', ''));

@@ -27,17 +27,7 @@ export class DashboardComponent implements OnInit {
   // Method to load user data from the backend
 private loadUser(): void {
   this.isLoading = true;
-  
-  const token = localStorage.getItem('token'); // Retrieve the JWT from localStorage
-  console.log(token);
-  let headers = new HttpHeaders(); // Initialize headers
-
-  // If there's a token, set the Authorization header
-  if (token) {
-    headers = headers.set('Authorization', `Bearer ${token}`);
-  }
-
-  this.http.get<{ name: string }>('http://localhost:8080/user', {headers})
+  this.http.get<{ name: string }>('http://localhost:8080/user')
     .subscribe({
       next: (data) => {
         this.name = data.name;
